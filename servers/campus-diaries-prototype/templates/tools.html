@@ -1,0 +1,16 @@
+ {% extends "header.html" %}
+
+ {% block body %}
+
+ <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" ><a href="{{url_for('pending_posts_web')}}" aria-controls="pending_posts_web" role="tab" data-toggle="tab">Pending Posts</a></li>
+    <li role="presentation" ><a href="{{url_for('rejected_posts_web')}}" aria-controls="rejected_posts_web" role="tab" data-toggle="tab">Rejected Posts</a></li>
+    <li role="presentation" ><a href="{{url_for('approved_posts_web')}}" aria-controls="approved_posts_web" role="tab" data-toggle="tab">Approved Posts</a></li>
+    <li role="presentation" ><a href="{{url_for('all_users_web')}}" aria-controls="all_users_web" role="tab" data-toggle="tab">All Users</a></li>
+    <li role="presentation" ><a href="{{url_for('moderators_web')}}" aria-controls="moderators_web" role="tab" data-toggle="tab">Moderators</a></li>
+    <li role="presentation" ><a href="{{url_for('admins_web')}}" aria-controls="admins_web" role="tab" data-toggle="tab">Admin</a></li>
+    
+    {% block body %}{% endblock %}
+
+
+  {% endblock %}

@@ -1,0 +1,766 @@
+<!-- inherits from header.html and puts the entire code in between block body -->
+{% extends "header.html" %}
+
+<!-- start block body of index.html -->
+{% block body %}
+
+	<!-- putting entire page into three columns.This is a container fluid -->
+	<div class="container-fluid">
+
+		<!-- In a single row, -->
+		<div class="row">
+
+			<!-- i am dividing it into three parts. 2col,8col,2col -->
+    		<div class="col col-lg-2">
+
+    			<!-- Inside the first div, which occupies two columsn space.In this we have code for post button and clubs names -->
+            	<div id="posit" style="position: fixed; width: 16.6%">
+            	
+            		<!-- show "post" button only iff the user is logged in. Using jinja logic ffor the same" -->
+            		{% if session.logged_in %}
+    
+            		<!-- jinja logic to check if user is logged in or not -->
+                    <a id="po" href="{{url_for('newpost')}}"  ><div id="posvaala">Post</div></a>
+                    {% endif %}
+                    <!-- post button code ends -->
+
+                    <!-- club lists html code starts -->
+                    <!-- just to separate the list from the post buttons -->
+                  	<aside class="sidebar big-sidebar ">
+                  		<!-- The club list is an unordered list -->
+            	        <ul>
+            	           	<li class="color-bg">
+            	               	<ul class="blocklist">
+
+            	               		<!-- Clubs names are written here -->
+            	                    <li><a class="selected" href="index.html">Techno</a></li>
+            	                  	<li><a href="#">Toast Masters</a>
+            						<li><a href="#">Photography</a></li>
+            						<li><a href="one-column.html">Swayam</a></li>
+            						<li><a href="text.html">Kriti Arts</a></li>
+            						<li><a href="three-column.html">Physics</a></li>
+            	                	<li><a href="#">Maths</a></li>
+            	                   	<li><a href="#">Chemistry</a></li>
+            	                   	<!-- end of club names -->
+            	               	</ul>
+            	           	</li>
+                        </ul>
+                    </aside>
+                    <!-- end of club list html code -->
+                </div>
+                <!-- end of the container in whch we have post button as well as clubs. This container is position fixed -->
+    		</div>
+    		<!-- end of code for first div. first div contains post button and club names -->
+    		
+
+    		<!-- start of the middle div which has the code for the posts. -->
+    		<div class="col col-lg-8" >
+
+    			<!-- start for loop to print posts -->
+            	{% for post in posts %}
+
+            		<!-- each post is further having two rows -->
+
+            		<!-- start of first row in post html -->
+      				<div class="row">
+      					<div class="col col-lg-12" style=" height: 50px;border-style: solid;border-color: black">
+      						{{post.postedby}}
+      					</div>
+      				</div>
+      				<!-- end of first row -->
+
+      				<!-- second row in posts -->
+      				<div class="row">
+      				<!-- second row of posts further divided into two cols -->
+
+      					<!-- first columns contains image -->
+      					<div class="col col-lg-2" style=" border-style: solid;height: 150px;border-color: black">
+      						<img src="{{url_for('send_image', filename = post.postpic )}}" height="150px" width="150px">
+      					</div>	
+      					<!-- end of first col which has image -->
+
+      					<!-- start of second column which has two rows. First row has POst title and second row has short description -->
+      					<div class="col col-lg-10" style=" border-style: solid;height: 150px;border-color: black">
+
+      						<!-- start of the two columns -->
+      						<div class="row">
+      							<!-- column whch has username -->
+                	    		<div class="col col-lg-12">
+                	      			<b>{{post.title}}</b>
+                	    		</div>
+                	    		<!-- column which has short description -->
+                	    		<div class="col col-lg-12">
+                	      			{{post.shortdesc}}
+                	    		</div>
+                			</div>
+                			<!-- end of the two rows -->
+      					</div>
+      					<!-- end of Second column div -->
+      				</div>
+      				<!-- end of second row of post -->      				
+				<!-- End for loop -->
+              	{% endfor %}
+
+            <!-- end of middle div (which has post ka html) -->
+       		</div>
+
+       		<!-- start of third div html. Occupies two columns space -->
+			<div class="col col-lg-2">
+				<!-- content of the third div -->
+				<div style="background-color: lightblue;height: 500px;float: right;position: fixed; height: 500px;width: 100%">
+		   			inside third div<br>second line
+		   		</div>
+		   		<!-- end of content in third div -->
+
+		   	<!-- End of third div -->
+	     	</div>
+
+	    <!-- end of entire intital row -->
+  		</div>
+
+  	<!-- end of entire bootstrap grid -->
+	</div>
+
+
+
+
+	<!-- some scripts -->
+	<script>
+		// get modal
+		var l = document.getElementById('loginid');
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+		    if (event.target == l) {
+		        l.style.display = "none";
+		    }
+		}
+	</script>
+	<!-- end of scripts fr the page -->
+
+<!-- End of block body and all this code is kept inside the header.html -->
+{% endblock %}
+
+
+<div class="item row" style="background-color: white;margin-top: 10px;padding-bottom: 10px;border-radius: 10px;margin-left: 10px;margin-right: 10px;border-color: black">
+                                <a class="col-lg-12" style="padding-top: 10px;padding-bottom: 10px" href="#">{{post.postedby}}</a>
+                                
+                                <a class="col-md-4 col-sm-4 col-xs-12" href="#" >
+                                <img class="img-responsive project-image" height="250px" width="250px" src="{{url_for('send_image', filename = post.postpic )}}"/>
+                                </a>
+                                <div class="desc col-md-8 col-sm-8 col-xs-12">
+                                    <h3 class="title"><a href="#">{{post.title}}</a></h3>
+                                    <p>{{post.shortdesc}}</p>
+                                    <p><a class="more-link" href="#"><i class="fa fa-external-link"></i> Find out more</a></p>
+                                </div><!--//desc-->
+
+                            </div><!--//item-->
+
+
+
+
+
+                                 <!-- first row in post is divided to two cols one of 10x space and the other 2x space -->
+                <div class="row">
+
+                <!-- 10x space col -->
+                    <div class="col col-lg-10" style="background-color: red; height: 50px">
+                          {{post.postedby}}
+                    </div>
+                    <!-- end of col -->
+
+                    <!-- start of 2x space col which aprove or reject button -->
+                    <div class="col col-lg-2">
+                          <button class="btn btn-danger" onclick="callserver({{post.postid}},-1)">Reject</button></a>
+                          <button class="btn btn-success" onclick="callserver({{post.postid}},1)">Approved</button></a>
+                    </div>
+                    <!-- end of 2x col which has approve and reject -->
+
+                <!-- end of the first row -->
+                </div>
+
+                <!-- start of the second row. second row is divided into two cols. 4x and 8x.4x is for image and 8x is for the data. will be changing it later le -->
+                <div class="row">
+
+                  <!-- start of the 4x col which has image-->
+                    <div class="col col-lg-4" style="background-color: lightgreen; height: 150px">
+                              <img src="" height="150px;">
+                    </div>
+                    <!-- end of 4x col which has image -->
+
+                    <!-- start of 8x col which has data about post -->
+                    <div class="col col-lg-8" style="background-color: lightblue; height: 150px;">
+                      <!-- further has two rows. one for post title and one for the short description -->
+                        <div class="row">
+                            <div class="col col-lg-12">
+                                <b>{{post.title}}</b>
+                            </div>
+                            <div class="col col-lg-12">
+                               {{post.shortdesc}}
+                            </div>
+                        </div>
+                        <!-- end of the division -->
+                    </div>
+                    <!-- end of the 8x col which has data about post -->
+                </div>
+                <!-- end of the second row in posts html -->
+
+
+
+
+
+
+                <form action="{{url_for('registrationPage')}}" method="Post">
+
+
+                        <h1 style="text-align: center;">Sign Up form</h1>
+
+                        <label><b>Username</b></label>
+                        <input type="text" style="color: black;" placeholder="Enter username" name="username" required>
+
+                        <label><b>Email</b></label>
+                        <input type="email" style="color: black;" placeholder="Enter Email" name="email" required>
+
+                        <label><b>Password</b></label>
+                        <input type="password" style="color: black;" placeholder="Enter Password" name="psw" required>
+
+                        <label><b>Repeat Password</b></label>
+                        <input type="password" style="color: black;" placeholder="Repeat Password" name="confirm" required>
+
+                         <label><b>Roll Number</b></label>
+                        <input type="number" style="color: black;" placeholder="eg: 160215733114" name="rollno" required>
+
+                        <label><b>Enter Date of birth</b></label>
+                        <input type="Date" style="color: black;" name="dob" required>
+
+                        <input type="submit" value = "Submit"> 
+           
+
+                  </form>
+
+
+
+
+
+                  <!-- buffer space for button css -->
+                  <div class="col col-lg-12" style="margin-top: 20px;text-align: center;">
+                <hr style="border-color:#dae3e7;margin-top: 0px; ">
+                         <button class="btn btn-danger" onclick="callserver({{post.postid}},-1)"> Reject</button>
+                        <button class="btn btn-success" style="margin-left: 20px" onclick="callserver({{post.postid}},1)">    Approved</button>
+                  </div>
+
+
+
+                  <script>
+		// get modal
+		var l = document.getElementById('loginid');
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+		    if (event.target == l) {
+		        l.style.display = "none";
+		    }
+		}
+	</script>
+
+
+  <!-- code for writing the post button using jinja  -->
+  ffor the same" -->
+                {% if session.logged_in %}
+    
+                <!-- jinja logic to check if user is logged in or not -->
+                    <a id="po" href="{{url_for('newpost')}}"  ><div id="posvaala">Post</div></a>
+                    {% endif %}
+
+
+
+
+<!-- all the buttons to come on to the nav-bar -->
+
+
+{% if session.logged_in %}
+    <li style="float: right;"><a href="{{url_for('logout')}}">Logout</a></li>
+    <li style="float: right;"><a href="{{url_for('newpost')}}">Post</a></li>
+    <li style="float: right;"><a href="#">{{session.user_name}}</a></li>
+
+
+    <!-- if user is logged in and rank is 1 -->
+    {% if session.rank > 0 %}
+    <li style="float: right;"><a href="{{url_for('tools')}}">Moderate</a></li>
+    {% endif %}
+    <!-- endif -->
+
+    {% else %}
+
+
+
+    <!-- show log in and sign in buttns -->
+    <li style="float: right;" onclick="document.getElementById('loginid').style.display = 'block'" id="logintext">Log In</li>
+    <li style="float: right;"><a href="{{url_for('registrationPage')}}">Sign Up</a></li>
+    <!--<li id="searchbox" style="float: left;" ><form class="form-inline my-2 my-lg-0">-->
+        {% endif %}
+
+
+        <!-- end whole block of if and else -->
+
+    <!-- html for the search box which appears in centre -->
+    <!--<input class="form-control mr-sm-2" type="text" style="width: 300px;margin-left: 200px" placeholder="Will best implemented" aria-label="Search">-->
+    <!--<button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="color: black">  Search</button></form></li>-->
+    <!-- end search box html -->
+    <!--<li><a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a></li>-->
+
+
+
+
+    <!-- old version of the menu bar now replaced with the bootsrapp version styles -->
+    #men {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+     position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    height: 50px;
+}
+
+#men li,.tools li{
+  float: left;
+}
+
+#men .active , .tools .active{
+    background-color: #4CAF50;
+}
+#men li a , .tools li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+#men #searchbox {
+  float: right;
+
+  margin-right: 15px;
+}
+
+
+#men li a:hover , .tools li a:hover{
+    background-color: #111;
+    text-decoration: none;
+    color: white;
+}
+
+
+#men #searchbox {
+  float: right;
+
+  margin-right: 15px;
+}
+
+
+<!-- ################################################################ -->
+<!-- about to make some really cool changes to header.html\ -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Campus Diaries!</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/poststyles.css') }}">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&amp;lang=en" />
+
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    
+
+<script type="text/javascript">
+
+        // function callserver which takes postid and status (-1,1,0) as input and sends these two values to the server to update the database about the status of the posts. Then it also removes the posts from the page.
+        function loginuser() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+            if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
+                if (xmlhttp.status == 200) {    
+                    if(xmlhttp.responseText === "login"){
+                        window.location.reload();
+                    }
+                    else if(xmlhttp.responseText === "error"){
+                    document.getElementById("error").innerHTML = "Invalid login";
+                    }
+                        
+                }
+                else if (xmlhttp.status == 400) {
+                    alert('There was an error 400');
+                }
+            }
+        };  
+
+        var rollnumber = document.getElementById("rollnumber").value;
+        var password = document.getElementById("password").value;
+        
+        
+
+        var obj = {
+            rollnumber: rollnumber,
+            password: password,
+        }
+
+        var myjson = JSON.stringify(obj);
+
+     
+
+        xmlhttp.open("POST", "{{url_for('login')}}", true);
+        xmlhttp.send(myjson);
+       
+        }
+
+        function removeloader(){
+            document.getElementById("loading").style.display="none";
+        }
+
+
+    </script>
+</head>
+
+<body onload="removeloader()">
+<!-- start body content -->
+
+<!-- code for the header. using jinja logic determine which buttons for whom, calling mainpage which renders index -->
+<!-- code for the header. using jinja logic determine which buttons for whom, calling mainpage which renders index -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid" >
+
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-collapse" aria-expanded="false">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+      </button>
+      
+      <a data-toggle="collapse" id="firstdivbutton" data-target=".menu-content" style="float: left;cursor: pointer;"  class="collapsed hidden-lg"><i class="fa fa-bars fa-2x toggle-btn"  ></i></a>
+
+        <a href="{{url_for('mainpage')}}" class="navbar-brand" style="background-color: #4CAF50;">Campus Diaries</a>
+
+    
+    <!-- If the user is logged in, calling program logout in browser which renders index -->
+
+    </div>
+<div id="main-menu-collapse" class="collapse navbar-collapse">
+<ul   class="nav navbar-nav">
+    <!-- button which shows upwhen scrren is small and brings in the left div -->
+    <!-- <li data-toggle="collapse" data-target=".menu-content" class="collapsed hidden-lg" style="margin-bottom: 0px; margin-top: 0;"><a href="#"><i class="fa fa-bars fa-2x toggle-btn"  ></i></a></li> -->
+    <li ><a href="#" class="hidden-xs hidden-md hidden-sm">About</a></li>
+</ul>
+    
+<ul class="nav navbar-nav navbar-right">
+        
+    {% if session.logged_in %}
+   
+    
+    
+
+
+    <!-- if user is logged in and rank is 1 -->
+    {% if session.rank > 0 %}
+    <li ><a href="{{url_for('tools')}}">Moderate</a></li>
+    {% endif %}
+    <li ><a href="#">{{session.user_name}}</a></li>
+    <!-- endif -->
+    
+        {% endif %}
+
+    {% if session.logged_in %}
+    <li ><a href="{{url_for('logout')}}">Logout</a></li>
+    {% else %}
+    <li ><a href="{{url_for('registrationPage')}}">Sign Up</a></li>
+    <li  onclick="document.getElementById('loginid').style.display = 'block'" ><a href="#">Log In</a></li>
+    {% endif %}
+
+    
+    
+</ul>    <!-- for all the elements in the right -->
+ <!-- this one is for nav navbar-nav -->
+</div> <!-- mainmenu collapse (collapse navbar-collapse) -->
+</div><!-- this one is for container fluid -->
+</nav>
+<div style="height: 50px;"></div>
+
+<!-- A small portion to prevent overflow -->
+<!-- <div style="width: 100%;height: 50px"></div> -->
+<div id="loading"></div>
+
+
+<!-- modal which appears when log in is clicked -->
+<div id="loginid" class="modal">
+    <div class="col-lg-3 col-sm-2 col-md-1 col-xs-0"></div>
+    <div class="col-lg-6 col-sm-8 col-md-10 col-xs-12">
+    <form class="modal-content animate" style="margin:0px;width:100%;">
+
+        <!-- When x mark is pressed, clode modal -->
+        <div class="imgcontainer">
+            <span onclick="document.getElementById('loginid').style.display='none'" class="close" title="Close Modal">&times;</span>
+            <label style="text-align: center;">LOGIN</label>
+        </div>
+
+        <!-- contents of the form -->
+        <div class="form-group" style="margin: 10px;">
+            <label ><b>Roll Number</b></label><br>
+            <input type="text" placeholder="eg. 160215733114" id="rollnumber" name="rollno" required><br>
+            <label><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" id="password" name="psw" required>
+            <span id="error" style="color: red;"></span>
+            <div style="cursor:pointer;height: 30px;color:white;text-align:center;width: 40px;background-color:green" onclick="loginuser();">Login</div>
+
+        </div>
+
+        <!-- cancel button also works same as into button -->
+        <div  style="background-color:#f1f1f1;margin: 10px;">
+            <button type="button" onclick="document.getElementById('loginid').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+    </form>
+    </div>
+</div>
+<!-- end login modal -->
+
+<!-- jinja logic which helps in inherting stuff into other pages. WHatever is there, it comes in between block body. -->
+{% block body %}{% endblock %}
+
+</body>
+<!-- end the html code for header.html -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ################################################################################# -->
+
+<!-- ################################################################################# -->
+<!-- ################################################################################# -->
+<!-- ################################################################################# -->
+<!-- ################################################################################# --><!-- ################################################################################# --><!-- ################################################################################# --><!-- ################################################################################# --><!-- ################################################################################# -->
+<!-- ################################################################################# -->
+
+<!-- ################################################################################# -->
+<!-- putting entire page into three columns.This is a container fluid -->
+  <div class="container-fluid">
+
+    <!-- In a single row, -->
+    <div class="row">
+
+      <!-- i am dividing it into three parts. 2col,8col,2col -->
+        <div class="col col-lg-2" style="height: 100%;background-color: #2e353d;box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10)">
+
+          <!-- Inside the first div, which occupies two columsn space.In this we have code for post button and clubs names -->
+              <div class="container-fluid" style="width: 100%;box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10);">
+              
+              <div class="nav-side-menu" style="box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10)">
+                
+            
+              
+            <div class="menu-list">
+              
+              <ul id="menu-content" class="menu-content collapse out " style="height: 100%;background-color: #2e353d;">
+                            <li>{% if session.logged_in %}
+            <a  href="{{url_for('newpost')}}"  ><div id="posvaala">Post</div></a>
+            {% endif %}</li>
+
+                            <li id="all" class="active">
+                            <a href="#">
+                            <i class="fa fa-newspaper-o fa-lg"></i> All
+                            </a>
+                            </li>
+
+                          <li  data-toggle="collapse" data-target="#departments" id="dept" class="collapsed">
+                            <a href="#"><i class="fa fa-graduation-cap fa-lg"></i> Departments<span class="arrow"></span></a>
+                          </li>
+                          <ul class="sub-menu collapse" id="departments">
+                            <li class="active"><a href="#">All</a></li>
+                              <li><a href="#">Civil</a></li>
+                              <li><a href="#">Cse</a></li>
+                              <li><a href="#">EEE</a></li>
+                              <li><a href="#"> ECE</a></li>
+                              <li><a href="#">Mechanical</a></li>
+                              <li><a href="#">IT</a></li>
+                              <li><a href="#">C.A</a></li>
+                              <li><a href="#">H&SS</a></li>
+                              
+                          </ul>
+
+                          <li  data-toggle="collapse" data-target="#campuslife" id="life" class="">
+                            <a href="#"><i class="fa fa-university fa-lg"></i> Campus Life<span class="arrow"></span></a>
+                          </li>
+                          <ul class="sub-menu collapse" id="campuslife">
+                            <li class="active"><a href="#">All</a></li>
+                              <li><a href="#">Acumen</a></li>
+                              <li><a href="#">CSI Student Chapter</a></li>
+                              <li><a href="#">Euphoria</a></li>
+                          
+                              <li><a href="#">ISTE Chapter</a></li>
+                              <li><a href="#">Kriti</a></li>
+                              <li><a href="#">Swayam</a></li>
+                              
+                              
+                          </ul>
+
+                          <li  data-toggle="collapse" data-target="#collegeclubs" id="clubs" class="">
+                            <a href="#"><i class="fa fa-users fa-lg"></i> College Clubs<span class="arrow"></span></a>
+                          </li>
+                          <ul class="sub-menu collapse" id="collegeclubs">
+                            <li class="active"><a href="#">All</a></li>
+                              <li><a href="#">ToastMasters</a></li>
+                              <li><a href="#"> Photography</a></li>
+                              <li><a href="#">Speak Easy</a></li>
+                          
+                              
+                              <li><a href="#">Maths</a></li>
+                              <li><a href="#">Phsics</a></li>
+                              <li><a href="#">Chemistry</a></li>
+                              
+                          </ul>
+
+                          <li  data-toggle="collapse" data-target="#year"  id="yr" class="">
+                            <a href="#"><i class="fa fa-bar-chart fa-lg"></i> Year<span class="arrow"></span></a>
+                          </li>
+                          <ul class="sub-menu collapse" id="year">
+                            <li class="active"><a href="#">All</a></li>
+                              <li><a href="#">First Year</a></li>
+                              <li><a href="#">Second Year</a></li>
+                              <li><a href="#">Third Year</a></li>
+                          
+                              
+                              <li><a href="#">Fourth Year</a></li>
+                          </ul>
+
+
+                          
+
+
+                          
+
+
+                           <li id="saved">
+                            <a href="#">
+                            <i class="fa fa-star fa-lg"></i> Saved
+                            </a>
+                            </li>
+
+                           
+                      </ul>
+                 </div>
+            </div>
+          </div>    
+        </div>
+        <!-- end of code for first div. first div contains post button and club names -->
+        
+
+        <!-- start of the middle div which has the code for the posts. -->
+        <div class="col col-lg-8" >
+
+          <!-- start for loop to print posts -->
+              {% for post in posts %}
+
+                
+              <div class="item" style="background-color: white;margin-top: 10px;margin-bottom: 5px;padding-bottom: 10px;border-radius: 5px;margin-left: 10px;margin-right: 10px;border-color: black;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div class="row"> <a class="col-lg-12" style="padding-top: 10px;padding-bottom: 10px" href="#">{{post.postedby}}</a>
+                    
+                    </div>
+                    <hr style="border-color:#dae3e7;margin-top: 0px; margin-bottom: 10px;margin-right: 10px;margin-left: 10px ">
+                    <div class="row">
+                        <a class="col-md-3 col-sm-3 col-xs-12" href="#" >
+                            <img class="img-responsive project-image" src="{{url_for('send_image', filename = post.postpic )}}"/>
+                        </a>
+                        <div class="desc col-md-9 col-sm-9 col-xs-12">
+                            <h3 class="title" style="height: 25px;overflow: hidden; margin-top: 0px;"><a href="#">{{post.title}}</a></h3>
+                            <p style="max-height: 105px;overflow: hidden;">{{post.shortdesc}}</p>
+                              
+                      </div>
+                    </div><!--//desc-->
+              
+                <!-- <div class="col col-lg-12" style="margin-top: 20px;text-align: center;">
+                <hr style="border-color:#dae3e7;margin-top: 0px; ">
+                         <button class="btn btn-danger" onclick="callserver({{post.postid}},-1)"> Reject</button>
+                        <button class="btn btn-success" style="margin-left: 20px" onclick="callserver({{post.postid}},1)">    Approved</button>
+                  </div> -->
+                  
+                </div>
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- End for loop -->
+                {% endfor %}
+
+            <!-- end of middle div (which has post ka html) -->
+          </div>
+
+          <!-- start of third div html. Occupies two columns space -->
+      <div class="col col-lg-2 visible-lg-*">
+        <!-- content of the third div -->
+        <!-- <div style="background-color: lightblue;height: 500px;float: right;position: fixed; height: 500px;width: 100%;box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10)">
+            inside third div<br>second line
+          </div> -->
+          <!-- end of content in third div -->
+
+        <!-- End of third div -->
+        </div>
+
+      <!-- end of entire intital row -->
+      </div>
+
+    <!-- end of entire bootstrap grid -->
+  </div>
+
+
+
+
+  <!-- some scripts -->
+  
+  <!-- end of scripts fr the page -->

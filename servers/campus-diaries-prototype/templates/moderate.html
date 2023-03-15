@@ -1,0 +1,174 @@
+<!-- extends header.html -->
+{% extends "header.html" %}
+
+<!-- start of block body -->
+{% block body %}
+
+	<!-- head space for scripts -->
+	<head>
+
+		<!-- some scripts for the page -->
+		<script type="text/javascript">
+
+		// function callserver which takes postid and status (-1,1,0) as input and sends these two values to the server to update the database about the status of the posts. Then it also removes the posts from the page.
+		function callserver(postid,status) {
+		    var xmlhttp = new XMLHttpRequest();
+		    xmlhttp.onreadystatechange = function() {
+		    if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
+		    	if (xmlhttp.status == 200) {
+		    		// run the removepost() function after recieving response from server.
+		      	removepost(postid);
+		    	}
+		    	else if (xmlhttp.status == 400) {
+		      		alert('There was an error 400');
+		    	}
+		  	}
+		};
+		var data = String(status)+ "." + String(postid);
+		xmlhttp.open("POST", "{{url_for('isapproved')}}", true);
+		xmlhttp.send(data=data);
+		}
+
+		// remove the post from the page
+		function removepost(postid){
+		  document.getElementById(postid).style.display = "none";
+		}
+
+		</script>
+		<!-- end of script space -->
+
+	</head>
+	<!-- end of head space -->
+
+	<!-- start of body space actyally -->
+	
+
+	<!-- putting entire page into three columns.This is a container fluid -->
+	<div class="container-fluid">
+
+		<!-- In a single row, -->
+		<div class="row">
+
+			<!-- i am dividing it into three parts. 2col,8col,2col -->
+    		<div class="col col-lg-2" >
+
+    			<!-- Inside the first div, which occupies two columsn space.In this we have code for post button and clubs names -->
+            	<div id="posit" style="position: fixed; width: 16.66%;">
+            	
+            		<!-- show "post" button only iff the user is logged in. Using jinja logic ffor the same" -->
+            		{% if session.logged_in %}
+    
+            		<!-- jinja logic to check if user is logged in or not -->
+                    <a id="po" href="{{url_for('newpost')}}"  ><div id="posvaala">Post</div></a>
+                    {% endif %}
+                    <!-- post button code ends -->
+
+                    <!-- club lists html code starts -->
+                    <!-- just to separate the list from the post buttons -->
+                  	<aside class="sidebar big-sidebar " style="box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10);border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;" >
+                  		<!-- The club list is an unordered list -->
+            	        <ul>
+            	           	<li class="color-bg">
+            	               	<ul class="blocklist">
+
+            	               		<!-- Clubs names are written here -->
+            	                    <li><a class="selected" href="index.html">Techno</a></li>
+            	                  	<li><a href="#">Toast Masters</a>
+            						<li><a href="#">Photography</a></li>
+            						<li><a href="one-column.html">Swayam</a></li>
+            						<li><a href="text.html">Kriti Arts</a></li>
+            						<li><a href="three-column.html">Physics</a></li>
+            	                	<li><a href="#">Maths</a></li>
+            	                   	<li><a href="#">Chemistry</a></li>
+            	                   	<!-- end of club names -->
+            	               	</ul>
+            	           	</li>
+                        </ul>
+                    </aside>
+                    <!-- end of club list html code -->
+                </div>
+                <!-- end of the container in whch we have post button as well as clubs. This container is position fixed -->
+    		</div>
+    		<!-- end of code for first div. first div contains post button and club names -->
+    		
+
+    		<!-- start of the middle div which has the code for the posts. -->
+    		<div class="col col-lg-8" >
+
+    			<!-- start for loop to print posts -->
+            	{% for post in posts %}
+
+            		
+              <div class="item" id={{post.postid}} style="background-color: white;margin-top: 10px;margin-bottom: 5px;padding-bottom: 10px;border-radius: 5px;margin-left: 10px;margin-right: 10px;border-color: black;box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10);">
+                    <div class="row"> <a class="col-lg-12" style="padding-top: 10px;padding-bottom: 10px" href="#">{{post.postedby}}</a>
+                    
+                    </div>
+                    <hr style="border-color:#dae3e7;margin-top: 0px; margin-bottom: 10px;margin-right: 10px;margin-left: 10px ">
+                    <div class="row">
+                        <a class="col-md-3 col-sm-3 col-xs-12" href="#" >
+                            <img class="img-responsive project-image" style="align-items: center;" src="{{url_for('send_image', filename = post.postpic )}}"/>
+                        </a>
+                        <div class="desc col-md-9 col-sm-9 col-xs-12">
+                            <h3 class="title" style="height: 25px;overflow: hidden;"><a href="#">{{post.title}}</a></h3>
+                            <p style="max-height: 110px;overflow: hidden;">{{post.shortdesc}}</p>
+          				</div>
+          				<div class="col col-lg-12" style="margin-top: 20px;text-align: center;">
+                <hr style="border-color:#dae3e7;margin-top: 0px; margin-left: 10px;margin-right: 10px">
+                         <button class="btn btn-danger" onclick="callserver({{post.postid}},-1)"> Reject</button>
+                        <button class="btn btn-success" style="margin-left: 20px" onclick="callserver({{post.postid}},1)">    Approved</button>
+                                
+                      </div>
+                    </div><!--//desc-->
+              
+                <!-- <div class="col col-lg-12" style="margin-top: 20px;text-align: center;">
+                <hr style="border-color:#dae3e7;margin-top: 0px; ">
+                         <button class="btn btn-danger" onclick="callserver({{post.postid}},-1)"> Reject</button>
+                        <button class="btn btn-success" style="margin-left: 20px" onclick="callserver({{post.postid}},1)">    Approved</button>
+                  </div> -->
+                  
+                </div>
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+				<!-- End for loop -->
+              	{% endfor %}
+
+            <!-- end of middle div (which has post ka html) -->
+       		</div>
+
+       		<!-- start of third div html. Occupies two columns space -->
+			<div class="col col-lg-2">
+				<!-- content of the third div -->
+				<div style="background-color: lightblue;height: 500px;float: right;position: fixed; height: 500px;width: 100%;box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10)">
+		   			inside third div<br>second line
+		   		</div>
+		   		<!-- end of content in third div -->
+
+		   	<!-- End of third div -->
+	     	</div>
+
+	    <!-- end of entire intital row -->
+  		</div>
+
+  	<!-- end of entire bootstrap grid -->
+	</div>
+
+
+{% endblock %}

@@ -1,0 +1,98 @@
+<!-- inherits from header.html and puts the entire code in between block body -->
+{% extends "header.html" %}
+
+<!-- start block body of index.html -->
+{% block body %}
+	
+
+	<!-- Left side column. contains the logo and sidebar -->
+
+  
+<div class="row" style="background-color: #dae9f3">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="col col-lg-2"></div>
+    <div class="col-lg-8 col-xs-12" style="background-color: #dae9f3">
+    	<!-- start for loop to print posts -->
+              {% for post in posts %}
+
+                
+              <div class="container-fluid" style="background-color: white;margin-top: 10px;margin-bottom: 5px;padding-bottom: 10px;border-radius: 5px;margin-left: 10px;margin-right: 10px;border-color: black;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div class="row col-lg-12" style="font-size: 18px;margin-top: 10px;margin-bottom: 10px;"> <a style="padding-top: 10px;padding-bottom: 10px;" href="#">{{post.postedby}}</a><span> posted an update in <a href="#">{{post.club}}</a>.</span>
+                    	<span style="float: right;font-size: 14px;"><a href="#"><i class="fa fa-chevron-down" aria-hidden="true"></i></a></span>
+                    
+                    </div>
+                    <hr  class="row col-lg-12" style="border-color:#dae3e7;margin-top: 0px;margin-bottom: 7px; ">
+                    <div class="row">
+                        <a class="col-md-3 col-sm-3 col-xs-12" href="#" >
+                            <img class="img-responsive project-image" src="{{url_for('send_image', filename = post.postpic )}}" style="height: 190px;" />
+                        </a>
+                        <div class="desc col-md-9 col-sm-9 col-xs-12">
+                            <h3 class="title" style="height: 25px;overflow: hidden; margin-top: 0px;"><a href="#">{{post.title}}</a></h3>
+                            <p style="overflow: hidden;height: 120px;">{{post.shortdesc}}
+                            	
+
+                            
+                            </p>
+                            
+                            
+                              <div class="row col-lg-12">
+                              	<div class="col col-lg-3 col-xs-3" style="text-align: center;"><i class="fa fa-phone" aria-hidden="true"></i> {{post.contact}}</div>
+                    	<div class="col col-lg-3 col-xs-3" style="text-align: center;"><i class="fa fa-calendar" aria-hidden="true"></i> {{post.startdate}}</div>
+                    	<div class="col col-lg-3 col-xs-3" style="text-align: center;"><i class="fa fa-clock-o" aria-hidden="true"></i> 23:11AM</div>
+                    	<div class="col col-lg-3 col-xs-3" style="text-align: center;"><i class="fa fa-map-marker" aria-hidden="true"></i> Seminar Hall</div>
+
+
+                    </div>
+                      </div>
+                    </div>
+                     <hr  class="row col-lg-12 col-xs-12" style="border-color:#dae3e7;margin-top: 7px;margin-bottom: 7px; ">
+                    <div class="row" style="text-align: center;">
+                    	<div class="col col-lg-3 col-xs-3"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Like</div>
+                    	<div class="col col-lg-3 col-xs-3"><i class="fa fa-comment-o" aria-hidden="true"></i> Comment</div>
+                    	
+                    	<div class="col col-lg-3 col-xs-3"><i class="fa fa-share-alt" aria-hidden="true"></i> Share</div>
+                    	<div class="col col-lg-3"><i class="fa fa-check-square-o" aria-hidden="true"></i> Register</div>
+                    </div>
+                    <!--//desc-->
+              
+                <!-- <div class="col col-lg-12" style="margin-top: 20px;text-align: center;">
+                <hr style="border-color:#dae3e7;margin-top: 0px; ">
+                         <button class="btn btn-danger" onclick="callserver({{post.postid}},-1)"> Reject</button>
+                        <button class="btn btn-success" style="margin-left: 20px" /onclick="callserver({{post.postid}},1)">    Approved</button>
+                  </div> -->
+                  
+                </div>
+           
+
+
+        <!-- End for loop -->
+                {% endfor %}
+
+            <!-- end of middle div (which has post ka html) -->
+    </div>
+  
+  <!-- /.content-wrapper -->
+
+
+<div class="col col-lg-2" >
+
+
+</div>
+
+</div>
+
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Create the tabs -->
+    
+    <!-- Tab panes -->
+    
+      <!-- /.tab-pane -->
+    
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Add the sidebar's background. This div must be placed
+       immediately after the control sidebar -->
+  
+
+<!-- End of block body and all this code is kept inside the header.html -->
+{% endblock %}

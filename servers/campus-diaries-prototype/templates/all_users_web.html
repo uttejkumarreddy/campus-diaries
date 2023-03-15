@@ -1,0 +1,90 @@
+{% extends "header.html" %}
+{% block body %}
+
+		<!-- scripts for the page -->
+	<script type="text/javascript">
+
+		// makemod function which takes the userid or rollnumber as input, sends to server to make that person as moderator. Then removes the user details from the page.
+		function makemod(userid,rank) {
+		    var xmlhttp = new XMLHttpRequest();
+		    xmlhttp.onreadystatechange = function() {
+			    if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
+			        if (xmlhttp.status == 200) {
+			        //document.getElementById("j").innerHTML = xmlhttp.responseText;
+				    //  alert(xmlhttp.responseText);
+			        sample_string = String(userid);
+			        removeuser(sample_string);
+			        }
+			        else if (xmlhttp.status == 400) {
+			        alert('There was an error 400');
+			        }
+			    }
+			};
+		    var data = String(rank) + "." + String(userid)
+		    xmlhttp.open("POST", "{{url_for('change_user_rank')}}", true);
+		    xmlhttp.send(data=data);
+		}
+
+		// removes the html content of the user by taking userid as input
+		function removeuser(userid){
+		  	document.getElementById(String(userid)).style.display = "none";
+		}
+  	</script>
+  	<!-- end of scripts for the page -->
+
+<div class="row" style="background-color: #dae9f3;margin: 0px;padding: 0px;">
+<div class="col col-lg-2 removeminheight" ></div>
+<div class="col col-lg-8 container-fluid" style="padding: 0px;">
+	
+<div class="console">
+	<div class="row">
+	<ul class="col col-lg-12 col-xs-12" >
+		<a href="{{url_for('pending_posts_web')}}"><li class="col col-lg-4 col-xs-4"><i class="fa fa-clock-o " aria-hidden="true"></i><span > Pending posts</span></li></a>
+		<a href="{{url_for('rejected_posts_web')}}"><li class="col col-lg-4 col-xs-4"><i class="fa fa-ban " aria-hidden="true"></i><span "> Rejected posts</span></li></a>
+		<a href="{{url_for('approved_posts_web')}}"><li class="col col-lg-4 col-xs-4"><i class="fa fa-thumbs-o-up " aria-hidden="true"></i><span > Approved posts</span></li></a>		
+	</ul>
+</div>
+
+{% if session.rank > 1 %}
+<hr style="color: white;margin: 0px">
+<div class="row">
+	<ul class="col col-lg-12 col-xs-12" >
+		<a href="{{url_for('all_users_web')}}"><li class="col col-lg-4 col-xs-4"><i class="fa fa-users " aria-hidden="true"></i><span > All users</span></li></a> 
+		<a href="{{url_for('moderators_web')}}"><li class="col col-lg-4 col-xs-4"><i class="fa fa-exclamation-circle " aria-hidden="true"></i><span > Moderators</span></li></a>
+		<a href="{{url_for('admins_web')}}"><li class="col col-lg-4 col-xs-4"><i class="fa fa-power-off " aria-hidden="true"></i><span > Admins</span></li></a>		
+	</ul>	
+</div>
+</div>
+
+{% endif %}
+{% if session.rank > 1 %}
+<div class="divtohelpconsole" style="height: 95px;"></div>
+{% else %}
+<div class="divtohelpconsole" style="height: 95px;"></div>
+{% endif %}
+
+  	<!-- html code for the users information to be displayed. (The users to be made moderators) -->
+	<div class="container-fluid" style="clear: both;">
+		<!-- start for loop of data given from server -->
+    	{% for user in allusers %}
+
+    		<!-- html code for user info -->
+      		<div id={{user.rollnumber}} style="display: block;">
+            	Username: {{user.uname}} Roll Number:{{user.rollnumber}}<button style="margin-left: 30px;margin-top: 10px" class="btn btn-success" onclick="makemod({{user.rollnumber}},1)">Make Moderator</button>
+            	{% if session.rank > 1 %}
+            	<button style="margin-left: 30px;margin-top: 10px" class="btn btn-success" onclick="makemod({{user.rollnumber}},2)">Make Admin</button>
+            	{% endif %}
+	            <hr class="divider">
+    		</div>
+    		<!-- end the html for users -->
+		<!-- End for loop -->
+      	{% endfor %}
+      	</div>
+      	</div>
+   	<div class="col col-lg-2"></div>
+	
+    <!-- end container for the posts -->
+	</div>
+
+
+{% endblock %}

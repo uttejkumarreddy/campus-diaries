@@ -1,0 +1,103 @@
+{% extends "header.html" %}
+
+{% block body %}
+
+	<head>
+
+		<!-- some scripts for the page -->
+		<script type="text/javascript">
+
+		// function callserver which takes postid and status (-1,1,0) as input and sends these two values to the server to update the database about the status of the posts. Then it also removes the posts from the page.
+		function callserver(postid,status) {
+		    var xmlhttp = new XMLHttpRequest();
+		    xmlhttp.onreadystatechange = function() {
+		    if (xmlhttp.readyState == XMLHttpRequest.DONE ) {
+		    	if (xmlhttp.status == 200) {
+		    		// run the removepost() function after recieving response from server.
+		      	removepost(postid);
+		    	}
+		    	else if (xmlhttp.status == 400) {
+		      		alert('There was an error 400');
+		    	}
+		  	}
+		};
+		var data = String(status)+ "." + String(postid);
+		xmlhttp.open("POST", "{{url_for('change_post_status_web')}}", true);
+		xmlhttp.send(data=data);
+		}
+
+		// remove the post from the page
+		function removepost(postid){
+		  document.getElementById(postid).style.display = "none";
+		}
+
+		</script>
+		<!-- end of script space -->
+
+	</head>
+	<!-- end of head space -->
+
+	
+
+	
+<div class="row" style="background-color: #dae9f3">
+<div class="col col-lg-2"></div>
+<div class="col col-lg-8">
+
+	<div class="console">
+	<div class="row">
+	<ul class="col col-lg-12 col-xs-12" >
+		<a href="{{url_for('pending_posts_web')}}"><li class="col col-lg-4 col-xs-4"><i class="fa fa-clock-o " aria-hidden="true"></i><span > Pending posts</span></li></a>
+		<a href="{{url_for('rejected_posts_web')}}"><li class="col col-lg-4 col-xs-4"><i class="fa fa-ban " aria-hidden="true"></i><span "> Rejected posts</span></li></a>
+		<a href="{{url_for('approved_posts_web')}}"><li class="col col-lg-4 col-xs-4"><i class="fa fa-thumbs-o-up " aria-hidden="true"></i><span > Approved posts</span></li></a>		
+	</ul>
+</div>
+
+{% if session.rank > 1 %}
+<hr style="color: white;margin: 0px">
+<div class="row">
+	<ul class="col col-lg-12 col-xs-12" >
+		<a href="{{url_for('all_users_web')}}"><li class="col col-lg-4 col-xs-4"><i class="fa fa-users " aria-hidden="true"></i><span > All users</span></li></a> 
+		<a href="{{url_for('moderators_web')}}"><li class="col col-lg-4 col-xs-4"><i class="fa fa-exclamation-circle " aria-hidden="true"></i><span > Moderators</span></li></a>
+		<a href="{{url_for('admins_web')}}"><li class="col col-lg-4 col-xs-4"><i class="fa fa-power-off " aria-hidden="true"></i><span > Admins</span></li></a>		
+	</ul>	
+</div>
+</div>
+
+{% endif %}
+{% if session.rank > 1 %}
+<div class="divtohelpconsole" style="height: 95px;"></div>
+{% else %}
+<div class="divtohelpconsole" style="height: 95px;"></div>
+{% endif %}
+		   	{% for post in posts %}
+		   		
+		   		<div class="container-fluid" id={{post.postid}} style="background-color: white;margin-top: 10px;margin-bottom: 5px;padding-bottom: 10px;border-radius: 5px;margin-left: 10px;margin-right: 10px;border-color: black;box-shadow: 0 3px 6px rgba(0,0,0,0.10), 0 3px 6px rgba(0,0,0,0.10);">
+		                    <div class="row"> <a class="col-lg-12" style="padding-top: 10px;padding-bottom: 10px" href="#">{{post.postedby}}</a>
+		                    
+		                    </div>
+		                    <hr style="border-color:#dae3e7;margin-top: 0px; margin-bottom: 10px;margin-right: 10px;margin-left: 10px ">
+		                    <div class="row">
+		                        <a class="col-md-3 col-sm-3 col-xs-12" href="#" >
+		                            <img class="img-responsive project-image" style="align-items: center;" src="{{url_for('send_image', filename = post.postpic )}}"/>
+		                        </a>
+		                        <div class="desc col-md-9 col-sm-9 col-xs-12">
+		                            <h3 class="title" style="height: 25px;overflow: hidden;"><a href="#">{{post.title}}</a></h3>
+		                            <p style="max-height: 110px;overflow: hidden;">{{post.shortdesc}}</p>
+		          				</div>
+		          				<div class="col col-lg-12" style="margin-top: 20px;text-align: center;">
+		                <hr style="border-color:#dae3e7;margin-top: 0px; margin-left: 10px;margin-right: 10px">
+		                         <button class="btn btn-danger" onclick="callserver({{post.postid}},-1)"> Reject</button>
+		                        <button class="btn btn-danger" style="margin-left: 20px" onclick="callserver({{post.postid}},0)">Pending</button>
+		                                
+		                      </div>
+		                    </div>
+		                  
+		                </div>
+
+   	{% endfor %}
+   	</div>
+   	<div class="col-lg-2"></div>
+   </div>
+	
+{% endblock %}
