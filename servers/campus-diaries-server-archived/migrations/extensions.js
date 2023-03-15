@@ -1,0 +1,1 @@
+module.exports.EXTENSION_UUID = `CREATE EXTENSION IF NOT EXISTS "uuid-ossp";`;

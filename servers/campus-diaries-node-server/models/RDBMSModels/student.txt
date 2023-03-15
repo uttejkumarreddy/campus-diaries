@@ -1,0 +1,17 @@
+CREATE TABLE `student` (
+  `primaryid` int(11) NOT NULL AUTO_INCREMENT,
+  `rollnumber` varchar(12) NOT NULL COMMENT 'This is of the format 160215733114 currently\\\\\\\\n',
+  `username` varchar(15) NOT NULL COMMENT 'Unique username to identity the user',
+  `name` varchar(30) NOT NULL COMMENT 'Given name of the user\n',
+  `password` varchar(512) NOT NULL COMMENT 'The hash of the password',
+  `email` varchar(35) NOT NULL COMMENT 'Unique email to send activation link to.',
+  `college` varchar(70) DEFAULT NULL,
+  `activationlink` varchar(50) DEFAULT NULL,
+  `activated` tinyint(1) NOT NULL DEFAULT '0',
+  `resetlink` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`primaryid`),
+  UNIQUE KEY `username_UNIQUE` (`username`),
+  UNIQUE KEY `email_UNIQUE` (`email`),
+  UNIQUE KEY `rollnumber_UNIQUE` (`rollnumber`),
+  UNIQUE KEY `primaryid_UNIQUE` (`primaryid`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='The information given at the time of registration is stored in this table.'

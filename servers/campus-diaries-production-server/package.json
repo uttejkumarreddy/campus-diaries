@@ -1,0 +1,33 @@
+{
+  "name": "campus-diaries-production-server",
+  "version": "1.0.0",
+  "description": "Campus Diaries backend",
+  "main": "index.js",
+  "scripts": {
+    "dev": "SET NODE_ENV=development && nodemon ./bin/www",
+    "grunt": "grunt",
+    "start": "node ./bin/www"
+  },
+  "author": "G. Uttej Kumar Reddy",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.6.0",
+    "morgan": "^1.9.1"
+  },
+  "devDependencies": {
+    "@types/errorhandler": "0.0.32",
+    "@types/express": "^4.17.0",
+    "@types/method-override": "0.0.31",
+    "@types/morgan": "^1.7.35",
+    "grunt": "^1.0.4",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-ts": "^6.0.0-beta.22",
+    "typescript": "^3.5.2"
+  }
+}

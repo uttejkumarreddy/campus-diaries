@@ -1,0 +1,144 @@
+1. server/api/newuser/register
+    Method: POST
+    Request Body: 
+        {
+            "username": "uttej",
+            "name": "uttej",
+            "password": "password",
+            "rollnumber": "160215733114",
+            "email": "uttej60@gmail.com",
+            "college": "Vasavi College of Engineering"
+        }
+    Response:
+        For error in hashing password: 500
+            {
+                errors: {
+                    "error": "Could not encrypt password.",
+                    "message": "Oops! Something went wrong on our side."
+                }
+            }
+        For error in saving to db: 
+            If Duplicate Entry: 400
+                {
+                    "errors": {
+                        "error": "Duplicate entry",
+                        "message": "Username already exists"
+                    }
+                }
+                {
+                    "errors": {
+                        "error": "Duplicate entry",
+                        "message": "Email already exists"
+                    }
+                }
+                {
+                    "errors": {
+                        "error": "Duplicate entry",
+                        "message": "RollNumber already exists"
+                    }
+                }
+            Else: 500
+                {
+                    "errors": {
+                        "error": "Error saving to DB",
+                        "message": "Server Error. Please try again later."
+                    }
+                }
+        For error in validations: {error: 'Incorrect Registration Details'} 400
+        On successful store: 200
+            {
+                data: {
+                    "success": true,
+                    "message": "User Registration successful."
+                }
+            }
+
+2. server/api/newuser/activate/:rollnumber/:activationlink
+    METHOD: GET
+    URL: As specified above
+    Response:
+        For error while retrieving data corr. to rollnumber in URL: 500
+            {
+                errors: {
+                    "error": "Error retrieving data.",
+                    "message": "Server Error. Please try again later."
+                }
+            }
+        For no data corr. to rollnumber in URL: 400
+            {
+                errors: {
+                    "error": "Bad Request.",
+                    "message": "This is not a valid request."
+                }
+            }
+        For on the off chance that 2 rows are retrieved for same rollnumber: 500
+            {
+                errors: {
+                    "error": "Duplicate accounts.",
+                    "message": "Something went wrong on our side."
+                }
+            }
+        If error while updating activated to 1 and activationlink to null: 500
+            {
+                errors: {
+                    "error": "Error activating the account.",
+                    "message": "Server Error. Please try again later."
+                }
+            }
+        If the activationlink does not equal with that of link of retrieved user corr. to URL: 400
+            {
+                errors: {
+                    "error": "Bad Request.",
+                    "message": "This is not a valid request."
+                }
+            }
+        For successful activated to 1 and activationlink to null of corr. user in URL: 200
+            {
+                data: {
+                    "success": true,
+                    "message": "User Account Activated."
+                }
+            }
+
+3. server/api/newuser/resendactivationlink
+    METHOD: POST
+    Request Body:
+        {
+            "email": "someemail@someservice.com"
+        }
+    Response:
+        For SQL error in retrieving row corr. to email in req body: 500
+            {
+                errors: {
+                    "error": "Error retrieving data.",
+                    "message": "Server Error. Please try again later."
+                }
+            }
+        For when no student has email as specified in req body: 400
+            {
+                errors: {
+                    "error": "Could not find email.",
+                    "message": "Oops! This email is not registered with us."
+                }
+            }
+        For an account which has already been activated: 200
+            {
+                data: {
+                    "success": true,
+                    "message": "Your account has been activated."
+                }
+            }
+        For SQL error while storing new activation key: 500
+            {
+                errors: {
+                    "error": "Error updating activation link.",
+                    "message": "Server Error. Please try again later."
+                }
+            }
+        For when an activation link is sent to email specified in req body: 200
+            {
+                data: {
+                    "success": true,
+                    "message": "An activation link has been sent to " + {req.body.email}
+                }
+            }

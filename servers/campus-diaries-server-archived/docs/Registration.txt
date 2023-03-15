@@ -1,0 +1,61 @@
+Registration is a five step process. 
+
+1. In the front-end, show colleges available and let user select a college.
+	a. API TO HIT: /colleges
+	b. METHOD: GET
+	c. Response: { "colleges": [{ name: "", onboard_number: "" }] }
+
+	Status:
+		Backend: Completed with happy-path testing
+		Frontend: 
+	
+2. In the front-end, ask user for email. Check with the backend if the email already exists.
+	If no, continue to step 3. 
+	If yes, show the message sent in response from backend and keep user on the same page.
+		a. API TO HIT: /user?email=USER_PROVIDED_EMAIL
+		b. METHOD: GET
+		c. Response: { isUnique: true/false, msg: '' }
+	
+	Status:
+		Backend: Completed with happy-path testing
+		Frontend:
+
+3. In the front-end, ask user for rollnumber. Check with the backend if the roll number already exists.
+	If no, continue to step 4.
+	If yes, show the message sent in response from backend and keep user on the same page.
+		a. API TO HIT: /user?roll_number=USER_PROVIDED_ROLLNUMBER&college=ONBOARD_NUMBER_FROM_FIRST_STEP
+		b. METHOD: GET
+		c. Response: { isUnique: true/false, msg: '' }
+
+	Status:
+		Backend: Completed with happy-path testing
+		Frontend:
+	
+4. In the front end, ask user for first and last name. Once clicked on next, construct a user name with first and last names like:
+	Remove all spaces in first name. Lower case all letters. Concatenate the words.
+	Remove all spaces in last name. Lower case all letters. Concatenate the words.
+	Username is first_name.last_name trimmed to 20 letters.
+	
+	Check if the username is unique for that college.
+	If no, continue to step 5.
+	If yes, show the message sent in response from backend. Provide the user the option to continue forward to step 5 or stay in step 4.
+		a. API TO HIT: /user?user_name=CALCULATED_USERNAME&college=ONBOARD_NUMBER_FROM_FIRST_STEP
+		b. METHOD: GET
+		c. RESPONSE: { isUnique: true/false, msg: '' }
+
+	Status:
+		Backend: Completed with happy-path testing
+		Frontend:
+		
+5. In the front end, ask user to enter password and confirm it. If matched, send all details gathered from STEP 1 to backend.
+	In case of success/failure, show the msg sent from backend.
+	a. API TO HIT: /register
+	b. METHOD: POST
+	c. BODY: { user: { college: 0, roll_number: '', email: '', first_name: '', last_name: '', user_name: '', password: '' }}
+	d. RESPONSE: { success: true/false, msg: '' }
+
+	Status:
+		Backend: Completed with happy-path testing
+		Frontend:
+
+6. An activation mail will be sent to the user.

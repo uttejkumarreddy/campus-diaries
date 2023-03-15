@@ -1,0 +1,47 @@
+{
+  "name": "closer-community-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+	"dev": "nodemon app.js",
+	"server": "node app.js",
+	"start": "node app.js",
+	"test": ""
+},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Uttejkumar/closer-community-server.git"
+  },
+  "author": "Uttej Kumar Reddy Gade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Uttejkumar/closer-community-server/issues"
+  },
+  "homepage": "https://github.com/Uttejkumar/closer-community-server#readme",
+  "dependencies": {
+    "@hapi/joi": "^17.1.0",
+    "app-root-path": "^3.0.0",
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.1",
+    "helmet": "^3.21.3",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "node-mailer": "^0.1.1",
+    "pg": "^7.18.2",
+    "pg-hstore": "^2.3.3",
+    "pug": "^2.0.4",
+    "redis": "^3.0.2",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^4.4.2"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.20.1"
+  }
+}

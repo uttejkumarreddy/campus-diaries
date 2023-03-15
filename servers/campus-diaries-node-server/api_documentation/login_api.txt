@@ -1,0 +1,45 @@
+1. server/api/auth/login
+    METHOD: Post
+    Request Body:
+        {
+	        "email": "uttej60@gmail.com",
+	        "password": "campusdiaries1"
+        }
+    Response:
+        For when user info could not be retreived based on email: 500
+            {errors: {
+                "error": "Could not retrieve user information.",
+                "message": "Oops! Something went wrong on our side."
+            }}
+        For when there is no email registered: 400
+        For when a password is incorrect: 400
+            {errors: {
+                "error": "Invalid login credentials.",
+                "message": "Invalid login credentials."
+            }}
+        For when account is not activated: 403
+            {errors: {
+                "error": "Account not activated.",
+                "message": "Please verify your account to login."
+            }}
+        For when error arises when comparing password and hash: 500
+            {errors: {
+                "error": 'Error while comparing passwords.',
+                "message": "Oops! Something went wrong on our side."
+            }}
+        For when error occurs while generating token: 500
+            {errors: {
+                "error": 'Error while generating token.',
+                "message": "Oops! Something went wrong on our side."
+            }}
+        Fail Safe Response: 400
+            {errors: {
+                "error": " Bad Request.",
+                "message": "Oops! Something went wrong on our side."
+            }}  
+        When email and password matches: 200
+            {data: {
+                "success": true,
+                "message": "Login Successful.",
+                "token": token //expires in seven days
+            }}  

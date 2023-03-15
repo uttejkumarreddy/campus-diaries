@@ -1,0 +1,75 @@
+{
+  "name": "the-community-app-server",
+  "version": "0.1.0",
+  "description": "The server code of the community app",
+  "main": "app.js",
+  "scripts": {
+    "start": "tsc && node dist/app.js",
+    "start:watch": "nodemon",
+    "build": "tsc",
+    "migrate": "node dist/migrations/migrate.js",
+    "seed": "node dist/seeders/seeder.js",
+    "migrate:clean": "node dist/migrations/migrate.js --clean",
+    "migrate:up": "node dist/migrations/migrate.js up",
+    "migrate:up seed": "node dist/migrations/migrate.js up seed",
+    "migrate:clean up": "node dist/migrations/migrate.js up --clean",
+    "migrate:clean up seed": "node dist/migrations/migrate.js up --clean seed",
+    "migrate:down": "node dist/migrations/migrate.js down"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/the-community-apps/the-community-app-server.git"
+  },
+  "author": "Bharadwaj, Charan, Rahul, Uttej",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/the-community-apps/the-community-app-server/issues"
+  },
+  "homepage": "https://github.com/the-community-apps/the-community-app-server#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^5.1.1",
+    "@hapi/joi": "^17.1.1",
+    "app-root-path": "^3.0.0",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.3",
+    "helmet": "^3.22.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.4.10",
+    "nunjucks": "^3.2.1",
+    "pg": "^8.0.3",
+    "pg-hstore": "^2.3.3",
+    "uuid": "^8.2.0",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^4.4.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.6",
+    "@types/node": "^13.13.4",
+    "nodemon": "^2.0.3",
+    "tslint": "^6.1.2",
+    "typescript": "^3.8.3"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "**/*.test.ts",
+      "**/*.spec.ts",
+      ".git",
+      "node_modules"
+    ],
+    "watch": [
+      "src"
+    ],
+    "exec": "npm start",
+    "ext": "ts"
+  },
+  "engines": {
+    "node": "10.15.0",
+    "npm": "6.4.1"
+  }
+}

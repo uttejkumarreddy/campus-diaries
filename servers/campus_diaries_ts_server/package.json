@@ -1,0 +1,36 @@
+{
+  "name": "campus-diaries-production-server",
+  "version": "1.0.0",
+  "description": "Backend of Campus Diaries",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "dev-mode": "nodemon -e ts -w ./src -x npm run start"
+  },
+  "author": "G. Uttej Kumar Reddy",
+  "license": "ISC",
+  "dependencies": {
+    "app-root-path": "^2.2.1",
+    "aws-sdk": "^2.478.0",
+    "bcrypt": "^3.0.6",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "helmet": "^3.18.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.0",
+    "morgan": "^1.9.1",
+    "nodemailer": "^6.2.1",
+    "passport": "^0.4.0",
+    "pug": "^2.0.4",
+    "uuid": "^3.3.2",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "nodemon": "^1.19.1"
+  }
+}

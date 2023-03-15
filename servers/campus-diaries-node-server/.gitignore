@@ -1,0 +1,5 @@
+node_modules/
+config/configurations.js
+test/test-data.js
+config/email-creds.js
+logs/

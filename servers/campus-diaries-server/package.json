@@ -1,0 +1,57 @@
+{
+  "name": "campus-diaries-server",
+  "version": "0.1.0",
+  "description": "Server code for campus diaries",
+  "main": "app.js",
+  "scripts": {
+    "start": "pm2 start src/app.js -i 0",
+    "stop": "pm2 delete app",
+    "start:watch": "nodemon ./src/app.js",
+    "test": "mocha --recursive",
+    "clean-migrate": "node ./migrations/RunCleanMigrate.js",
+    "clean-seed": "node ./seeds/RunCleanSeed.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CollegeApps/campus-diaries-server.git"
+  },
+  "author": "G. Uttej Kumar Reddy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CollegeApps/campus-diaries-server/issues"
+  },
+  "homepage": "https://github.com/CollegeApps/campus-diaries-server#readme",
+  "dependencies": {
+    "@google-cloud/storage": "^5.0.0",
+    "@hapi/joi": "^17.1.1",
+    "app-root-path": "^3.0.0",
+    "bcrypt": "^4.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-jwt": "^5.3.3",
+    "helmet": "^3.22.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.4.8",
+    "nunjucks": "^3.2.1",
+    "pg": "^8.1.0",
+    "pg-hstore": "^2.3.3",
+    "pm2": "^4.4.0",
+    "uuid": "^8.0.0",
+    "winston": "^3.2.1",
+    "winston-daily-rotate-file": "^4.4.2"
+  },
+  "devDependencies": {
+    "axios": "^0.19.2",
+    "expect": "^26.0.1",
+    "mocha": "^7.1.2",
+    "nodemon": "^2.0.3"
+  },
+  "engines": {
+    "node": "10.15.0",
+    "npm": "6.4.1"
+  }
+}

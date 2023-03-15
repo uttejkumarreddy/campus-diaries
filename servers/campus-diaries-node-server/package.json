@@ -1,0 +1,35 @@
+{
+  "name": "campus-diaries",
+  "version": "1.0.0",
+  "description": "The Node Server for CD Hybrid App",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "mocha",
+    "test-watch": "nodemon --exec \"npm test\"",
+    "dev-server": "nodemon index.js"
+  },
+  "author": "Uttej Kumar Reddy G.",
+  "license": "ISC",
+  "dependencies": {
+    "app-root-path": "^2.1.0",
+    "bcrypt": "^3.0.0",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "jsonwebtoken": "^8.3.0",
+    "mongoose": "^5.4.17",
+    "morgan": "^1.9.1",
+    "mysql": "^2.16.0",
+    "nodemailer": "^4.6.8",
+    "nunjucks": "^3.2.0",
+    "randomstring": "^1.1.5",
+    "request": "^2.88.0",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "expect": "^1.20.2",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.3"
+  }
+}

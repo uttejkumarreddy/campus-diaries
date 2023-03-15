@@ -1,0 +1,30 @@
+{
+	"development": {
+		"user": "postgres",
+		"password": "admin",
+		"database": "campus-diaries-dev",
+		"host": "127.0.0.1",
+		"port": 5432
+	},
+	"test": {
+		"user": "postgres",
+		"password": "admin",
+		"database": "campus-diaries-test",
+		"host": "127.0.0.1",
+		"port": 5432
+	},
+	"production": {
+		"user": "postgres",
+		"password": "admin",
+		"database": "campus-diaries",
+		"host": "127.0.0.1",
+		"port": 5432
+	},
+	"heroku": {
+		"user": "riympdlfwzntbj",
+		"password": "22a756d21601374ad390968fb10c5084d9eabbb5ed101c05871d39497a09023c",
+		"database": "desantu1mkkfe5",
+		"host": "ec2-54-235-250-38.compute-1.amazonaws.com",
+		"port": 5432
+	}
+}
